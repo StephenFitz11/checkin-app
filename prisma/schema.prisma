@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Coral {
+  id                 Int           @id @default(autoincrement())
+  name               String
+  arrivalWindowStart DateTime      @db.Time(6)
+  createdAt          DateTime      @default(now())
+  arrivalWindowEnd   DateTime?     @db.Time(6)
+  Participant        Participant[]
+}
+
+model Participant {
+  id           Int        @id @default(autoincrement())
+  name         String
+  contactEmail String
+  contactPhone String
+  coralId      Int
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime
+  Coral        Coral      @relation(fields: [coralId], references: [id])
+  CheckIns     CheckIns[]
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+}
+
+model CheckIns {
+  id            Int         @id @default(autoincrement())
+  participantId Int
+  coralId       Int
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @default(now())
+  Participant   Participant @relation(fields: [participantId], references: [id])
+}
