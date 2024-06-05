@@ -21,9 +21,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import MotionDiv from "@/components/motion-div";
+import prisma from "@/lib/db";
 
 const Page = async () => {
-  const prisma = new PrismaClient();
   const corals = await prisma.coral.findMany();
   console.log(corals);
 

@@ -45,3 +45,11 @@ model CheckIns {
   updatedAt     DateTime    @default(now())
   Participant   Participant @relation(fields: [participantId], references: [id])
 }
+
+model TestEntity {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  checkin     Boolean
+  createdAt   DateTime @default(now())
+}

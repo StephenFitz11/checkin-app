@@ -13,6 +13,7 @@ import Link from "next/link";
 import MotionDiv from "@/components/motion-div";
 import { DataTable } from "./data-table";
 import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/db";
 
 type Payment = {
   id: string;
@@ -38,8 +39,6 @@ export const payments: Payment[] = [
 ];
 
 export default async function Home() {
-  const prisma = new PrismaClient();
-
   const participants = await prisma.participant.findMany();
 
   return (
