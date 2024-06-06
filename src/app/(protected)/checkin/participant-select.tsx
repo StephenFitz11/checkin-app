@@ -3,21 +3,25 @@ import React, { Fragment, useState } from "react";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { Participant } from "@prisma/client";
-import { Button } from "@/components/ui/button";
+import { Coral, Participant } from "@prisma/client";
+
 import { cn } from "@/lib/utils";
+import CheckinButton from "./checkin-btn";
+import { ParticipantWithCorral } from "@/types/types";
 
-// flex min-h-screen flex-col items-center justify-between sm:p-24
-
-const ParticipantSelect = ({ participants }: { participants: any[] }) => {
-  const [selected, setSelected] = useState<Participant>();
+const ParticipantSelect = ({
+  participants,
+}: {
+  participants: ParticipantWithCorral[];
+}) => {
+  const [selected, setSelected] = useState<ParticipantWithCorral>();
   return (
     <>
       <div className="h-screen px-2 flex flex-col justify-around">
         <h2 className="text-xl font-bold text-center py-4">
           Select Participant
         </h2>
-        <ScrollArea className="md:h-96 h-4/5 w-full rounded-md border">
+        <ScrollArea className=" h-4/5 w-full rounded-md border">
           <div className="p-4">
             {participants.map((participant) => (
               <Fragment key={participant.id}>
@@ -32,14 +36,11 @@ const ParticipantSelect = ({ participants }: { participants: any[] }) => {
                 >
                   {participant.name}
                 </div>
-                {/* <Separator className="my-1" /> */}
               </Fragment>
             ))}
           </div>
         </ScrollArea>
-        <Button className=" w-full" onClick={() => console.log(selected)}>
-          Check In
-        </Button>
+        <CheckinButton participant={selected} />
       </div>
     </>
   );
