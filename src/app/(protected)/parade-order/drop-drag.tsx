@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import {
@@ -18,11 +17,22 @@ import {
 } from "@dnd-kit/core";
 import { ParticipantWithCorral } from "@/types/types";
 
-const initialItems = ["Row 1", "Row 2", "Row 3"];
+// Updated initialItems to be an array of objects
+const initialItems = [
+  { id: "1", text: "Row 1" },
+  { id: "2", text: "Row 2" },
+  { id: "3", text: "Row 3" },
+];
 
-function SortableItem({ id }: { id: string }) {
+interface Item {
+  id: string;
+  text: string;
+}
+
+// Updated SortableItem to accept an Item object
+function SortableItem({ item }: { item: ParticipantWithCorral }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id });
+    useSortable({ id: item.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -37,7 +47,7 @@ function SortableItem({ id }: { id: string }) {
       {...listeners}
       className="cursor-pointer"
     >
-      <td className="border px-4 py-2">{id}</td>
+      <td className="border px-4 py-2">{item.name}</td>
     </tr>
   );
 }
@@ -47,7 +57,7 @@ const ReorderableTable = ({
 }: {
   participants: ParticipantWithCorral[];
 }) => {
-  const [items, setItems] = useState(initialItems);
+  const [items, setItems] = useState<ParticipantWithCorral[]>(participants);
 
   const sensors = useSensors(
     useSensor(MouseSensor),
@@ -61,8 +71,8 @@ const ReorderableTable = ({
 
     if (active.id !== over.id) {
       setItems((items) => {
-        const oldIndex = items.indexOf(active.id);
-        const newIndex = items.indexOf(over.id);
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over.id);
         return arrayMove(items, oldIndex, newIndex);
       });
     }
@@ -74,7 +84,10 @@ const ReorderableTable = ({
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
     >
-      <SortableContext items={items} strategy={verticalListSortingStrategy}>
+      <SortableContext
+        items={items.map((item) => item.id)}
+        strategy={verticalListSortingStrategy}
+      >
         <table className="min-w-full divide-y divide-gray-200">
           <thead>
             <tr>
@@ -82,8 +95,8 @@ const ReorderableTable = ({
             </tr>
           </thead>
           <tbody>
-            {items.map((id) => (
-              <SortableItem key={id} id={id} />
+            {items.map((item) => (
+              <SortableItem key={item.id} item={item} />
             ))}
           </tbody>
         </table>
