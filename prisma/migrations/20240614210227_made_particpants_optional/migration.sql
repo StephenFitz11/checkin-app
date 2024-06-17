@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Participant" ALTER COLUMN "contactEmail" DROP NOT NULL,
+ALTER COLUMN "contactPhone" DROP NOT NULL,
+ALTER COLUMN "createdAt" DROP NOT NULL,
+ALTER COLUMN "updatedAt" DROP NOT NULL;

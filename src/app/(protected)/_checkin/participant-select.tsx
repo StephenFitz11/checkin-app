@@ -15,6 +15,9 @@ const ParticipantSelect = ({
   participants: ParticipantWithCorral[];
 }) => {
   const [selected, setSelected] = useState<ParticipantWithCorral>();
+
+  const handleChecking = () => {};
+
   return (
     <>
       <div className="h-screen px-2 flex flex-col justify-around">
