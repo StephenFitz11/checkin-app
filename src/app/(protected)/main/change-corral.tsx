@@ -19,10 +19,6 @@ const corrals = [
   { id: 4, name: "Corral D" },
 ];
 
-const handleChangeSelect = (value: string) => {
-  console.log(value);
-};
-
 export function ChangeCorral({
   corralValue,
   handleChangeCorral,

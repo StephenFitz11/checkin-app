@@ -66,7 +66,6 @@ function SortableItem({ item, idx }: { item: Participant; idx: number }) {
       {...attributes}
       {...listeners}
       className="cursor-pointer border px-4 py-4 flex justify-between gap-6 items-center text-center"
-      onClick={() => console.log("ITEMS!!!!!")}
     >
       <div className="flex gap-4">
         <svg
@@ -147,8 +146,6 @@ const ReorderableTable = ({
     // if (firstNotChecking === 0) firstNotChecking++;
 
     const thisParticipant = items.findIndex((p) => p.id === participant?.id);
-    console.log("firstNotChecking", firstNotChecking);
-    console.log("firstNotChecking", thisParticipant);
     let movedItems = arrayMove(items, thisParticipant, firstNotChecking);
     movedItems = movedItems.map((p) =>
       p.id === participant?.id ? { ...p, checkedIn: true } : p

@@ -31,7 +31,6 @@ const page = async () => {
     },
     orderBy: [{ coralId: "asc" }, { paradeOrder: "asc" }],
   });
-  console.log(coralsWithParticipants);
 
   return (
     <main className="flex flex-col items-center justify-between py-4 h-screen sm:px-24 after:">
