@@ -50,7 +50,15 @@ interface Item {
   text: string;
 }
 // Updated SortableItem to accept an Item object
-function SortableItem({ item, idx }: { item: Participant; idx: number }) {
+function SortableItem({
+  item,
+  idx,
+  handleClickRow,
+}: {
+  item: Participant;
+  idx: number;
+  handleClickRow: (item: Participant) => void;
+}) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: item.id });
 
@@ -66,6 +74,7 @@ function SortableItem({ item, idx }: { item: Participant; idx: number }) {
       {...attributes}
       {...listeners}
       className="cursor-pointer border px-4 py-4 flex justify-between gap-6 items-center text-center"
+      onMouseDown={() => handleClickRow(item)}
     >
       <div className="flex gap-4">
         <svg
@@ -138,6 +147,12 @@ const ReorderableTable = ({
     })
   );
 
+  const handleClickRow = (item: Participant) => {
+    setParticipant(item);
+    setCorralValue(String(participant?.coralId || 1));
+    setOpen(true);
+  };
+
   const handleCheck = async () => {
     setOpen(false);
     await handleCheckin(participant);
@@ -167,12 +182,11 @@ const ReorderableTable = ({
   const handleDragEnd = async (event: any) => {
     const { active, over } = event;
 
-    if (!over) {
-      setParticipant(() => participants.find((p) => p.id === active.id));
-      setCorralValue(String(participant?.coralId || 1));
-      setOpen(true);
-      return;
-    }
+    if (!over) return;
+    // setParticipant(() => participants.find((p) => p.id === active.id));
+    // setCorralValue(String(participant?.coralId || 1));
+    // setOpen(true);
+    // return;
 
     if (active.id !== over.id) {
       const oldIndex = items.findIndex((item) => item.id === active.id);
@@ -196,7 +210,12 @@ const ReorderableTable = ({
           strategy={verticalListSortingStrategy}
         >
           {items.map((item, idx) => (
-            <SortableItem key={item.id} item={item} idx={idx + 1} />
+            <SortableItem
+              key={item.id}
+              item={item}
+              idx={idx + 1}
+              handleClickRow={handleClickRow}
+            />
           ))}
         </SortableContext>
       </DndContext>
