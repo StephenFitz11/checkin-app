@@ -2,7 +2,7 @@
 
 import { revalidateFunc } from "@/actions/revalidate-path";
 import { RefreshCw } from "lucide-react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const RefreshButton = () => {
   const router = useRouter();
