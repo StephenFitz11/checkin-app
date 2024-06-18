@@ -31,11 +31,11 @@ export default async function Page({
 }) {
   const corrals = await getCorrals();
   return (
-    <div className="h-dvh w-screen flex flex-row items-center justify-center">
+    <div className="h-screen w-screen flex items-center justify-center">
       <Carousel
-        className="w-4/5"
+        className="w-4/5 h-full"
         opts={{
-          startIndex: searchParams?.tab ? parseInt(searchParams.tab) : 0,
+          startIndex: (searchParams?.tab ? parseInt(searchParams.tab) : 0) - 1,
         }}
       >
         <CarouselContent>
@@ -54,7 +54,7 @@ export default async function Page({
                     </div>
                     <div className="">Status</div>
                   </div>
-                  <ScrollArea className="flex-1 overflow-y-auto rounded-md border w-full flex">
+                  <ScrollArea className="flex-1 h-full overflow-y-auto rounded-md border w-full flex">
                     <ReorderableTable participants={corral.Participant} />
                   </ScrollArea>
                 </CardContent>

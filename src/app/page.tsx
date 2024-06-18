@@ -63,7 +63,7 @@ const page = async () => {
           {participants.map((participant, idx) => (
             <div
               key={participant.id}
-              className="cursor-pointer border px-4 py-4 flex justify-between gap-6 items-center text-center"
+              className="cursor-pointer border px-4 py-4 flex justify-between gap-6 items-center  text-left"
             >
               <div className="flex gap-4">
                 <svg
@@ -95,7 +95,7 @@ const page = async () => {
                 </svg>
                 {participant.name}
               </div>
-              {participant.checkedIn && (
+              {participant.seen && (
                 <span className="inline-flex items-center gap-x-1.5 rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-700">
                   <Check size={16} />
                   {/* <svg

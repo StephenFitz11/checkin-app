@@ -2,7 +2,7 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 var _ = require("lodash");
 import { DndContext, TouchSensor, closestCenter } from "@dnd-kit/core";
 import {
@@ -35,6 +35,9 @@ import {
 import { handleCheckin } from "@/actions/edit-checkin";
 import { useRouter } from "next/navigation";
 import { CarouselApi } from "@/components/ui/carousel";
+import { ChangeCorral } from "./change-corral";
+import { updateCorral } from "@/actions/update-corral";
+import { useSearchParams } from "next/navigation";
 // Updated initialItems to be an array of objects
 const initialItems = [
   { id: "1", text: "Row 1" },
@@ -118,10 +121,15 @@ const ReorderableTable = ({
   participants: Participant[];
 }) => {
   const router = useRouter();
-  const [api, setApi] = React.useState<CarouselApi>();
-  const [items, setItems] = useState<Participant[]>(participants);
+  const searchParams = useSearchParams();
+
   const [participant, setParticipant] = useState<Participant>();
+  const [items, setItems] = useState<Participant[]>(participants);
+
   const [open, setOpen] = useState(false);
+  const [corralValue, setCorralValue] = useState(
+    String(participant?.coralId || 1) || ""
+  );
 
   const sensors = useSensors(
     useSensor(TouchSensor),
@@ -152,11 +160,19 @@ const ReorderableTable = ({
     // router.push(`/main?tab=${Number(participant?.coralId) - 1}`);
   };
 
+  const handleChangeCorral = async (value: string) => {
+    setCorralValue(value);
+    await updateCorral(participant, value);
+    setOpen(false);
+    router.push(`/main?tab=${value}&change=${participant?.id}`);
+  };
+
   const handleDragEnd = async (event: any) => {
     const { active, over } = event;
 
     if (!over) {
       setParticipant(() => participants.find((p) => p.id === active.id));
+      setCorralValue(String(participant?.coralId || 1));
       setOpen(true);
       return;
     }
@@ -202,6 +218,10 @@ const ReorderableTable = ({
             </div>
           </div>
           <DialogFooter>
+            <ChangeCorral
+              corralValue={corralValue}
+              handleChangeCorral={handleChangeCorral}
+            />
             <Button
               type="button"
               variant="outline"
