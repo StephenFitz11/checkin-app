@@ -7,24 +7,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Check, CheckCheck, CheckCircleIcon, RefreshCw } from "lucide-react";
 import RefreshButton from "./refresh-btn";
-type Payment = {
-  id: string;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
-};
+
+export const revalidate = 1;
 
 const page = async () => {
-  const coralsWithParticipants = await prisma.coral.findMany({
-    include: {
-      Participant: {
-        orderBy: {
-          paradeOrder: "asc",
-        },
-      },
-    },
-  });
-
   const participants = await prisma.participant.findMany({
     where: {
       checkedIn: true,

@@ -1,6 +1,7 @@
 "use server";
 import prisma from "@/lib/db";
 import { Participant } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 export const updateCorral = async (
   participant?: Participant,
   corralId?: string
@@ -14,4 +15,5 @@ export const updateCorral = async (
       coralId: Number(corralId),
     },
   });
+  revalidatePath("/main");
 };

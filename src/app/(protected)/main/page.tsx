@@ -23,7 +23,7 @@ const getCorrals = async () => {
   });
   return coralsWithParticipants;
 };
-
+export const revalidate = 1;
 export default async function Page({
   searchParams,
 }: {

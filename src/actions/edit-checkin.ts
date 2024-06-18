@@ -19,4 +19,5 @@ export const handleCheckin = async (participant: Participant | undefined) => {
     },
   });
   revalidatePath("/main");
+  revalidatePath("/");
 };
