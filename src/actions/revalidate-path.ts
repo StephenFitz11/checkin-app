@@ -5,5 +5,4 @@ import { redirect } from "next/navigation";
 export const revalidateFunc = () => {
   revalidatePath("/");
   revalidatePath("/main");
-  redirect("/");
 };
