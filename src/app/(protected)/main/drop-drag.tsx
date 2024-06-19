@@ -25,6 +25,7 @@ import { Participant } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -35,15 +36,10 @@ import {
 import { handleCheckin } from "@/actions/edit-checkin";
 import { useRouter } from "next/navigation";
 import { CarouselApi } from "@/components/ui/carousel";
-import { ChangeCorral } from "./change-corral";
+import { ChangeCorral, corrals } from "./change-corral";
 import { updateCorral } from "@/actions/update-corral";
+import { Check, CheckCircle, UserCheck } from "lucide-react";
 // import { useSearchParams } from "next/navigation";
-// Updated initialItems to be an array of objects
-const initialItems = [
-  { id: "1", text: "Row 1" },
-  { id: "2", text: "Row 2" },
-  { id: "3", text: "Row 3" },
-];
 
 interface Item {
   id: string;
@@ -73,16 +69,17 @@ function SortableItem({
       style={style}
       {...attributes}
       {...listeners}
-      className="cursor-pointer border px-4 py-4 flex justify-between gap-6 items-center text-center"
+      className="cursor-pointer border px-4 py-4 flex justify-between gap-6 items-center text-left"
       onMouseDown={() => handleClickRow(item)}
     >
-      <div className="flex gap-4">
+      <div className="flex gap-4 items-center w-full">
         <svg
           width="24"
           height="24"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          className="flex-shrink-0"
         >
           <circle
             cx="12"
@@ -104,20 +101,10 @@ function SortableItem({
             {idx}
           </text>
         </svg>
-
-        {item.name}
+        <span className="flex-grow break-words">{item.name}</span>
       </div>
       {item.checkedIn && (
-        <span className="inline-flex items-center gap-x-1.5 rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-700">
-          <svg
-            className="h-1.5 w-1.5 fill-green-500"
-            viewBox="0 0 6 6"
-            aria-hidden="true"
-          >
-            <circle cx={3} cy={3} r={3} />
-          </svg>
-          Checked in
-        </span>
+        <Check className="h-6 w-6 text-green-500 flex-shrink-0" />
       )}
     </div>
   );
@@ -153,9 +140,9 @@ const ReorderableTable = ({
     setOpen(true);
   };
 
-  const handleCheck = async () => {
+  const handleCheck = async (checkvalue: boolean) => {
     setOpen(false);
-    await handleCheckin(participant);
+    await handleCheckin(participant, checkvalue);
 
     let firstNotChecking = items.findIndex((p) => !p.checkedIn);
     // if (firstNotChecking === 0) firstNotChecking++;
@@ -219,7 +206,7 @@ const ReorderableTable = ({
           ))}
         </SortableContext>
       </DndContext>
-      <Dialog open={open}>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="sm:max-w-3/4 ">
           <DialogHeader>
             <DialogTitle>Checkin</DialogTitle>
@@ -231,35 +218,47 @@ const ReorderableTable = ({
             <div className=" items-center gap-4 flex space-x-4 ">
               <p>Name: </p>
               <p>{participant?.name}</p>
+              {/* <p>{corrals.find((c) => c.id === participant?.coralId)?.name}</p> */}
+            </div>
+            <div className=" items-center gap-4 flex space-x-4 ">
+              <p>Corral: </p>
+              <p>
+                {corrals.find((c) => c.id === participant?.coralId)?.letter}
+              </p>
             </div>
           </div>
-          <DialogFooter>
+          <DialogFooter className="gap-3">
             <ChangeCorral
               corralValue={corralValue}
               handleChangeCorral={handleChangeCorral}
             />
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => setOpen(false)}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-4 mr-2"
+            {participant?.checkedIn && (
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  handleCheck(false);
+                }}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
-                />
-              </svg>
-              Back
-            </Button>
-            <Button type="button" onClick={() => handleCheck()}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-4 mr-2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+                  />
+                </svg>
+                Undo Checkin
+              </Button>
+            )}
+
+            <Button type="button" onClick={() => handleCheck(true)}>
               Checkin
             </Button>
           </DialogFooter>

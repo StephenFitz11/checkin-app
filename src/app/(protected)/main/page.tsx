@@ -32,7 +32,7 @@ export default async function Page({
 }) {
   const corrals = await getCorrals();
   return (
-    <div className="h-screen w-screen flex flex-col items-center justify-center">
+    <div className="h-screen w-screen flex flex-col ">
       <CaroselComp corrals={corrals} />
       {/* <Carousel
         className="w-4/5 h-full"

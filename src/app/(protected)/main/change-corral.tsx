@@ -12,11 +12,11 @@ import {
 import { Participant } from "@prisma/client";
 import { useState } from "react";
 
-const corrals = [
-  { id: 1, name: "Corral A" },
-  { id: 2, name: "Corral B" },
-  { id: 3, name: "Corral C" },
-  { id: 4, name: "Corral D" },
+export const corrals = [
+  { id: 1, name: "Corral A", letter: "A" },
+  { id: 2, name: "Corral B", letter: "B" },
+  { id: 3, name: "Corral C", letter: "C" },
+  { id: 4, name: "Corral D", letter: "D" },
 ];
 
 export function ChangeCorral({
@@ -31,7 +31,7 @@ export function ChangeCorral({
       value={corralValue}
       onValueChange={(value) => handleChangeCorral(value)}
     >
-      <SelectTrigger className="w-1/2">
+      <SelectTrigger className="w-full">
         <SelectValue placeholder="Change Corral" />
       </SelectTrigger>
       <SelectContent>

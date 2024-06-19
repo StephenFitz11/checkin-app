@@ -4,7 +4,10 @@ import prisma from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export const handleCheckin = async (participant: Participant | undefined) => {
+export const handleCheckin = async (
+  participant: Participant | undefined,
+  checkinStatus: boolean
+) => {
   if (!participant) return;
   // Step 1: Find the maximum "order" value in the records
 
@@ -15,7 +18,7 @@ export const handleCheckin = async (participant: Participant | undefined) => {
       id: participant.id,
     },
     data: {
-      checkedIn: true,
+      checkedIn: checkinStatus,
     },
   });
   revalidatePath("/main");

@@ -16,8 +16,8 @@ import { useState } from "react";
 import { MoveLeft, MoveRight } from "lucide-react";
 
 const CaroselComp = ({ corrals }: { corrals: CorralWithParticipants[] }) => {
-  // const searchParams = useSearchParams();
   const [api, setApi] = useState<CarouselApi>();
+
   return (
     <>
       {/* <button className="" onClick={() => api?.scrollPrev()}>
@@ -36,8 +36,8 @@ const CaroselComp = ({ corrals }: { corrals: CorralWithParticipants[] }) => {
           {corrals.map((corral, index) => (
             <CarouselItem key={index}>
               <Card>
-                <CardContent className="flex flex-col items-center justify-center p-6 h-full">
-                  <span className="text-2xl py-2 font-semibold">
+                <CardContent className="pr-8 flex flex-col items-center justify-center  h-full">
+                  <span className="text-2xl py-2 font-semibold sticky top-0 bg-white z-10">
                     {corral.name}
                   </span>
 
@@ -46,7 +46,7 @@ const CaroselComp = ({ corrals }: { corrals: CorralWithParticipants[] }) => {
                       <div className="">#</div>
                       <div className="">Name</div>
                     </div>
-                    <div className="">Status</div>
+                    <div className="">Checkin</div>
                   </div>
                   <ScrollArea className="flex-1 h-full overflow-y-auto rounded-md border w-full flex">
                     <ReorderableTable participants={corral.Participant} />
