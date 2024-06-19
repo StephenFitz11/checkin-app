@@ -19,17 +19,19 @@ const page = async () => {
   });
 
   return (
-    <main className="flex flex-col items-center justify-between py-4 h-screen sm:px-24 after:">
-      <div className="flex flex-col space-y-6 w-full h-full">
-        <RefreshButton />
-        <div className="cursor-pointer border px-4 py-4 flex  items-center justify-between text-center rounded w-full">
+    <main className="flex flex-col items-center justify-between  py-4 h-screen sm:px-36">
+      <div className="flex flex-col w-full h-full">
+        <h1 className="text-center text-lg pb-4 font-semibold tracking-tight sm:text-2xl sm:py-6 ">
+          2024 OK Pride Alliance Parade Order
+        </h1>
+        <div className="cursor-pointer border px-4 py-2 flex  items-center justify-between text-center rounded w-full">
           <div className="flex gap-8">
             <div>#</div>
             <div>Name</div>
           </div>
           <div>Seen</div>
         </div>
-        <ScrollArea className="flex-1 w-full overflow-y-auto rounded-md border">
+        <ScrollArea className=" w-full overflow-y-auto">
           {participants.map((participant, idx) => (
             <div
               key={participant.id}
@@ -72,15 +74,16 @@ const page = async () => {
                     className="h-1.5 w-1.5 fill-green-500"
                     viewBox="0 0 6 6"
                     aria-hidden="true"
-                  >
+                    >
                     <circle cx={3} cy={3} r={3} />
-                  </svg> */}
+                    </svg> */}
                 </span>
               )}
             </div>
           ))}
         </ScrollArea>
       </div>
+      <RefreshButton className="sm:py-6 text-lg" />
     </main>
   );
 };

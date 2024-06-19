@@ -19,8 +19,8 @@ const config = {
     },
     extend: {
       backgroundImage: {
-        rainbow:
-          "linear-gradient(45deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #8B00FF)",
+        "rainbow-gradient":
+          "linear-gradient(90deg, red 17%, orange 14%, yellow 28%, green 42%, blue 57%, indigo 71%, violet 85%)",
       },
       colors: {
         border: "hsl(var(--border))",
