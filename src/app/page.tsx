@@ -25,16 +25,16 @@ const page = async () => {
             Pride Parade Order
           </h1>
         ) : (
-          <div className="flex gap-3 mt-12 items-center">
+          <div className="flex gap-3 sm:mt-12 items-center justify-center pb-4 sm:pb-0">
             <h3 className="inline text-4xl">🚗</h3>
-            <h3 className="inline text-4xl">🚗</h3>
-            <h3 className="inline text-4xl">🚗</h3>
-            <h1 className="text-center text-lg pb-4 font-semibold tracking-tight sm:text-2xl sm:py-6 px-2 ">
+            <h3 className="text-4xl ">🚗</h3>
+            <h3 className="text-4xl hidden sm:inline">🚗</h3>
+            <h1 className="text-center text-lg font-semibold tracking-tight sm:text-2xl sm:py-6 px-2 ">
               Pride Parade Order
             </h1>
             <h3 className="inline text-4xl">🌈</h3>
             <h3 className="inline text-4xl">🎉</h3>
-            <h3 className="inline text-4xl">🎊</h3>
+            <h3 className="text-4xl hidden sm:inline ">🎊</h3>
           </div>
         )}
 
