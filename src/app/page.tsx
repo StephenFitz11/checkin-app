@@ -7,6 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Check, CheckCheck, CheckCircleIcon, RefreshCw } from "lucide-react";
 import RefreshButton from "./refresh-btn";
+import ParticipantRow from "@/components/participant-row";
 
 export const revalidate = 1;
 
@@ -33,10 +34,7 @@ const page = async () => {
         </div>
         <ScrollArea className=" w-full overflow-y-auto">
           {participants.map((participant, idx) => (
-            <div
-              key={participant.id}
-              className="cursor-pointer border px-4 py-4 flex justify-between gap-6 items-center  text-left"
-            >
+            <ParticipantRow key={participant.id} participant={participant}>
               <div className="flex gap-4">
                 <svg
                   width="24"
@@ -79,7 +77,7 @@ const page = async () => {
                     </svg> */}
                 </span>
               )}
-            </div>
+            </ParticipantRow>
           ))}
         </ScrollArea>
       </div>
