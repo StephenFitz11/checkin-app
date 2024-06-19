@@ -160,7 +160,7 @@ const ReorderableTable = ({
   };
 
   const handleChangeCorral = async (value: string) => {
-    setCorralValue(value);
+    // setCorralValue(value);
     await updateCorral(participant, value);
     setOpen(false);
     router.push(`/main?tab=${value}&change=${participant?.id}`);
@@ -229,7 +229,7 @@ const ReorderableTable = ({
           </div>
           <DialogFooter className="gap-3">
             <ChangeCorral
-              corralValue={corralValue}
+              corralValue={String(participant?.coralId)}
               handleChangeCorral={handleChangeCorral}
             />
             {participant?.checkedIn && (

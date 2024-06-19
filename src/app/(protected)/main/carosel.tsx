@@ -36,7 +36,7 @@ const CaroselComp = ({ corrals }: { corrals: CorralWithParticipants[] }) => {
           {corrals.map((corral, index) => (
             <CarouselItem key={index}>
               <Card>
-                <CardContent className="pr-8 flex flex-col items-center justify-center  h-full">
+                <CardContent className="px-10 flex flex-col items-center justify-center  h-full">
                   <span className="text-2xl py-2 font-semibold sticky top-0 bg-white z-10">
                     {corral.name}
                   </span>

@@ -23,7 +23,7 @@ export function ChangeCorral({
   corralValue,
   handleChangeCorral,
 }: {
-  corralValue: string;
+  corralValue?: string;
   handleChangeCorral: (value: string) => void;
 }) {
   return (
