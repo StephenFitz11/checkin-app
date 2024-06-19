@@ -18,10 +18,10 @@ const page = async () => {
   });
 
   return (
-    <main className="flex flex-col items-center justify-between  py-4 h-screen sm:px-36">
+    <main className="flex flex-col items-center justify-between px-2 py-4 h-screen sm:px-36">
       <div className="flex flex-col w-full h-full">
         {participants.length === 0 ? (
-          <h1 className="text-center text-lg pb-4 font-semibold tracking-tight sm:text-2xl sm:py-6 px-2 ">
+          <h1 className="text-center text-3xl pt-4 pb-4 font-semibold tracking-tight sm:text-4xl sm:py-6 sm:pt-12 px-2 ">
             Pride Parade Order
           </h1>
         ) : (
@@ -40,7 +40,7 @@ const page = async () => {
 
         {participants.length === 0 ? (
           <div className="text-center flex flex-col items-center justify-center h-1/4">
-            <h3 className="mt-2 text-xl font-semibold text-gray-900">
+            <h3 className="mt-2 text-lg font-semibold text-gray-900 sm:text-xl">
               No floats have checked in yet!
             </h3>
             <p className="mt-1 text-lg text-gray-600">
