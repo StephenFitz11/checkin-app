@@ -47,17 +47,18 @@ const ParticipantRow = ({
     <div
       className={cn(
         seen && "bg-gray-200 border-white",
-        "cursor-pointer border px-2 py-4 flex  justify-between gap-6"
+        "cursor-pointer border px-2 py-4 flex items-center justify-between gap-6"
       )}
       onClick={handleTap}
     >
-      <div className="flex gap-4">
+      <div className="flex gap-4 items-center">
         <svg
           width="24"
           height="24"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          className="flex-shrink-0"
         >
           <circle
             cx="12"
@@ -80,13 +81,15 @@ const ParticipantRow = ({
             {idx + 1}
           </text>
         </svg>
-        <p className={cn(seen && "text-gray-500")}>{children}</p>
+        <p className={cn(seen && "text-gray-500", "flex-shrink")}>{children}</p>
       </div>
-      {seen ? (
-        <CircleCheck className="text-green-500" aria-hidden="true" />
-      ) : (
-        <Circle className="text-gray-300" aria-hidden="true" />
-      )}
+      <div className="flex-shrink-0">
+        {seen ? (
+          <CircleCheck className="text-green-500" aria-hidden="true" />
+        ) : (
+          <Circle className="text-gray-300" aria-hidden="true" />
+        )}
+      </div>
     </div>
   );
 };
