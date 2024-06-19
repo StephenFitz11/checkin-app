@@ -141,22 +141,23 @@ const ReorderableTable = ({
   };
 
   const handleCheck = async (checkvalue: boolean) => {
+    const copy = [...items];
     setOpen(false);
     await handleCheckin(participant, checkvalue);
 
     let firstNotChecking = items.findIndex((p) => !p.checkedIn);
-    // if (firstNotChecking === 0) firstNotChecking++;
-
     const thisParticipant = items.findIndex((p) => p.id === participant?.id);
+
+    if (!checkvalue) firstNotChecking = firstNotChecking - 1;
+
     let movedItems = arrayMove(items, thisParticipant, firstNotChecking);
+
     movedItems = movedItems.map((p) =>
-      p.id === participant?.id ? { ...p, checkedIn: true } : p
+      p.id === participant?.id ? { ...p, checkedIn: checkvalue } : p
     );
-    // const newItems = movedItems.map((p, idx) => ({ ...p, paradeOrder: idx }));
 
     setItems(movedItems);
-    await updateParadeOrder(movedItems);
-    // router.push(`/main?tab=${Number(participant?.coralId) - 1}`);
+    await updateParadeOrder(movedItems, copy);
   };
 
   const handleChangeCorral = async (value: string) => {
@@ -167,6 +168,7 @@ const ReorderableTable = ({
   };
 
   const handleDragEnd = async (event: any) => {
+    const copy = [...items];
     const { active, over } = event;
 
     if (!over) return;
@@ -181,7 +183,7 @@ const ReorderableTable = ({
       const movedItems = arrayMove(items, oldIndex, newIndex);
       setItems(movedItems);
 
-      await updateParadeOrder(movedItems);
+      await updateParadeOrder(movedItems, copy);
     }
   };
 
@@ -258,9 +260,11 @@ const ReorderableTable = ({
               </Button>
             )}
 
-            <Button type="button" onClick={() => handleCheck(true)}>
-              Checkin
-            </Button>
+            {!participant?.checkedIn && (
+              <Button type="button" onClick={() => handleCheck(true)}>
+                Checkin
+              </Button>
+            )}
           </DialogFooter>
         </DialogContent>
       </Dialog>
