@@ -47,39 +47,41 @@ const ParticipantRow = ({
     <div
       className={cn(
         seen && "bg-gray-200 border-white",
-        "cursor-pointer border px-4 py-4 flex justify-between gap-6 items-center  text-left"
+        "cursor-pointer border px-2 py-4 flex  justify-between gap-6"
       )}
       onClick={handleTap}
     >
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle
-          cx="12"
-          cy="12"
-          r="10"
-          stroke={seen ? "gray" : "black"}
-          strokeWidth="1"
-          fill="white"
-        />
-        <text
-          x="50%"
-          y="50%"
-          alignmentBaseline="central"
-          textAnchor="middle"
-          fontFamily="Arial"
-          fontSize="12"
-          fontWeight="200"
-          stroke={seen ? "gray" : "black"}
+      <div className="flex gap-4">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          {idx + 1}
-        </text>
-      </svg>
-      <p className={cn(seen && "text-gray-500")}>{children}</p>
+          <circle
+            cx="12"
+            cy="12"
+            r="10"
+            stroke={seen ? "gray" : "black"}
+            strokeWidth="1"
+            fill="white"
+          />
+          <text
+            x="50%"
+            y="50%"
+            alignmentBaseline="central"
+            textAnchor="middle"
+            fontFamily="Arial"
+            fontSize="12"
+            fontWeight="200"
+            stroke={seen ? "gray" : "black"}
+          >
+            {idx + 1}
+          </text>
+        </svg>
+        <p className={cn(seen && "text-gray-500")}>{children}</p>
+      </div>
       {seen ? (
         <CircleCheck className="text-green-500" aria-hidden="true" />
       ) : (
