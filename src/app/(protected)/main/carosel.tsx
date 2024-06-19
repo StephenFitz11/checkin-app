@@ -16,7 +16,7 @@ import { useSearchParams } from "next/navigation";
 import { MoveLeft, MoveRight } from "lucide-react";
 
 const CaroselComp = ({ corrals }: { corrals: CorralWithParticipants[] }) => {
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   const [api, setApi] = useState<CarouselApi>();
   return (
     <>
@@ -27,10 +27,10 @@ const CaroselComp = ({ corrals }: { corrals: CorralWithParticipants[] }) => {
       <Carousel
         setApi={setApi}
         className="w-full h-full"
-        opts={{
-          startIndex:
-            Number(searchParams?.get("tab") ? searchParams?.get("tab") : 0) - 1,
-        }}
+        // opts={{
+        //   startIndex:
+        //     Number(searchParams?.get("tab") ? searchParams?.get("tab") : 0) - 1,
+        // }}
       >
         <CarouselContent>
           {corrals.map((corral, index) => (
