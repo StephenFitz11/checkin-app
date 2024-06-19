@@ -10,6 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import ReorderableTable from "./drop-drag";
+import CaroselComp from "./carosel";
 
 const getCorrals = async () => {
   const coralsWithParticipants = await prisma.coral.findMany({
@@ -31,8 +32,9 @@ export default async function Page({
 }) {
   const corrals = await getCorrals();
   return (
-    <div className="h-screen w-screen flex items-center justify-center">
-      <Carousel
+    <div className="h-screen w-screen flex flex-col items-center justify-center">
+      <CaroselComp corrals={corrals} />
+      {/* <Carousel
         className="w-4/5 h-full"
         opts={{
           startIndex: (searchParams?.tab ? parseInt(searchParams.tab) : 0) - 1,
@@ -64,7 +66,7 @@ export default async function Page({
         </CarouselContent>
         <CarouselPrevious />
         <CarouselNext />
-      </Carousel>
+      </Carousel> */}
     </div>
   );
 }
