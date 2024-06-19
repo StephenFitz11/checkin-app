@@ -24,7 +24,6 @@ model Participant {
   coralId      Int
   checkedIn    Boolean    @default(false)
   paradeOrder  Int?
-  seen         Boolean    @default(false)
   createdAt    DateTime?  @default(now())
   updatedAt    DateTime?
   Coral        Coral      @relation(fields: [coralId], references: [id])

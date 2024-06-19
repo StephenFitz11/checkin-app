@@ -34,49 +34,12 @@ const page = async () => {
         </div>
         <ScrollArea className=" w-full overflow-y-auto">
           {participants.map((participant, idx) => (
-            <ParticipantRow key={participant.id} participant={participant}>
-              <div className="flex gap-4">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="black"
-                    strokeWidth="2"
-                    fill="white"
-                  />
-                  <text
-                    x="50%"
-                    y="50%"
-                    alignmentBaseline="central"
-                    textAnchor="middle"
-                    fontFamily="Arial"
-                    fontSize="12"
-                    fill="black"
-                  >
-                    {idx + 1}
-                  </text>
-                </svg>
-                {participant.name}
-              </div>
-              {participant.seen && (
-                <span className="inline-flex items-center gap-x-1.5 rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-700">
-                  <Check size={16} />
-                  {/* <svg
-                    className="h-1.5 w-1.5 fill-green-500"
-                    viewBox="0 0 6 6"
-                    aria-hidden="true"
-                    >
-                    <circle cx={3} cy={3} r={3} />
-                    </svg> */}
-                </span>
-              )}
+            <ParticipantRow
+              key={participant.id}
+              participant={participant}
+              idx={idx}
+            >
+              <div className="flex gap-4">{participant.name}</div>
             </ParticipantRow>
           ))}
         </ScrollArea>
