@@ -12,7 +12,7 @@ import {
 import ReorderableTable from "./drop-drag";
 import { CorralWithParticipants } from "@/types/types";
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 import { MoveLeft, MoveRight } from "lucide-react";
 
 const CaroselComp = ({ corrals }: { corrals: CorralWithParticipants[] }) => {

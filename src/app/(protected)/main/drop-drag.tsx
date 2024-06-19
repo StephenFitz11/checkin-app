@@ -37,7 +37,7 @@ import { useRouter } from "next/navigation";
 import { CarouselApi } from "@/components/ui/carousel";
 import { ChangeCorral } from "./change-corral";
 import { updateCorral } from "@/actions/update-corral";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 // Updated initialItems to be an array of objects
 const initialItems = [
   { id: "1", text: "Row 1" },
@@ -129,7 +129,7 @@ const ReorderableTable = ({
   participants: Participant[];
 }) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
 
   const [participant, setParticipant] = useState<Participant>();
   const [items, setItems] = useState<Participant[]>(participants);
