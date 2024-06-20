@@ -75,7 +75,17 @@ const page = async () => {
                   {participant.name}
                 </ParticipantRow>
               ))}
-              <div className="px-2 py-8">{""}</div>
+              <div className="flex gap-3 pb-24 pt-8 items-center justify-center">
+                {/* <h3 className="inline text-5xl">🚗</h3> */}
+                {/* <h3 className="inline text-5xl">🚗</h3> */}
+                <h3 className="inline text-3xl">🚗</h3>
+                <h3 className="inline text-3xl">🚗</h3>
+                <h3 className="inline text-3xl">🌈</h3>
+                <h1 className="font-semibold tracking-tight">THE END!!!</h1>
+                <h3 className="inline text-3xl">🎉</h3>
+                <h3 className="inline text-3xl">🎊</h3>
+                <h3 className="inline text-3xl">🎉</h3>
+              </div>
             </ScrollArea>
           </>
         )}
