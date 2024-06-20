@@ -26,7 +26,7 @@ const CaroselComp = ({ corrals }: { corrals: CorralWithParticipants[] }) => {
 
       <Carousel
         setApi={setApi}
-        className="w-full h-full sm:px-16 sm:py-12"
+        className="w-full h-full px-10 sm:px-16 sm:py-12"
         // opts={{
         //   startIndex:
         //     Number(searchParams?.get("tab") ? searchParams?.get("tab") : 0) - 1,
