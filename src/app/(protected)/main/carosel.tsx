@@ -26,7 +26,7 @@ const CaroselComp = ({ corrals }: { corrals: CorralWithParticipants[] }) => {
 
       <Carousel
         setApi={setApi}
-        className="w-full h-full"
+        className="w-full h-full sm:px-16 sm:py-12"
         // opts={{
         //   startIndex:
         //     Number(searchParams?.get("tab") ? searchParams?.get("tab") : 0) - 1,
@@ -36,7 +36,7 @@ const CaroselComp = ({ corrals }: { corrals: CorralWithParticipants[] }) => {
           {corrals.map((corral, index) => (
             <CarouselItem key={index}>
               <Card>
-                <CardContent className="px-10 flex flex-col items-center justify-center  h-full">
+                <CardContent className="flex flex-col items-center justify-center  h-full">
                   <span className="text-2xl py-2 font-semibold sticky top-0 bg-white z-10">
                     {corral.name}
                   </span>
