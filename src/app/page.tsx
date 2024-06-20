@@ -5,6 +5,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 import RefreshButton from "./refresh-btn";
 import ParticipantRow from "@/components/participant-row";
+import { cn } from "@/lib/utils";
 
 export const revalidate = 1;
 
@@ -53,6 +54,7 @@ const page = async () => {
               <h3 className="inline text-5xl">🎉</h3>
               <h3 className="inline text-5xl">🎊</h3>
             </div>
+            <RefreshButton className=" hidden sm:flex rounded-full w-1/2 mt-12 text-lg" />
           </div>
         ) : (
           <>
@@ -73,11 +75,17 @@ const page = async () => {
                   {participant.name}
                 </ParticipantRow>
               ))}
+              <div className="px-2 py-8">{""}</div>
             </ScrollArea>
           </>
         )}
       </div>
-      <RefreshButton className="sm:py-6 text-lg" />
+      <RefreshButton
+        className={cn(
+          participants.length === 0 ? "sm:hidden" : "",
+          "sm:py-6 fixed bottom-0 left-0 text-lg"
+        )}
+      />
     </main>
   );
 };

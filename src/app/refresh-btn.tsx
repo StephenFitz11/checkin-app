@@ -18,7 +18,7 @@ const RefreshButton = ({ className }: { className?: string }) => {
   return (
     <button
       className={cn(
-        "fixed bottom-0 left-0  inline-flex items-center justify-center gap-2 px-4 py-4 text-xs font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 focus:outline-none w-full bg-blue-500 text-white p-4",
+        "inline-flex items-center justify-center gap-2 px-4 py-4 text-xs font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 focus:outline-none w-full bg-blue-500 text-white p-4",
         className
       )}
       onClick={() => {
