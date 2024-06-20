@@ -5,7 +5,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 import RefreshButton from "./refresh-btn";
 import ParticipantRow from "@/components/participant-row";
-import { PlusIcon } from "lucide-react";
 
 export const revalidate = 1;
 
