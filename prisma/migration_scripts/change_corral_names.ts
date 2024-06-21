@@ -2,25 +2,31 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-async function main() {
-  const results = await prisma.participant.findMany({});
+async function chnageCorralName() {
+  const nameMap: { [key: number]: string } = {
+    1: "A",
+    2: "B",
+    3: "C",
+    4: "D",
+  };
+
+  const results = await prisma.coral.findMany({});
 
   for (let index = 0; index < results.length; index++) {
     const element = results[index];
 
-    await prisma.participant.update({
+    await prisma.coral.update({
       where: {
         id: element.id,
       },
       data: {
-        paradeOrder: null,
-        checkedIn: false,
+        name: nameMap[element.id as number],
       },
     });
   }
 }
 
-main()
+chnageCorralName()
   .then(async () => {
     await prisma.$disconnect();
   })

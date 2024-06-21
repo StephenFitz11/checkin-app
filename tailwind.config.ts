@@ -24,8 +24,8 @@ const config = {
       },
       colors: {
         border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
+        // input: "hsl(var(--input))",
+        // ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
@@ -63,13 +63,18 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
-        "rainbow-glow": {
-          "0%, 100%": { borderColor: "#ff0000" }, // Red
-          "16.7%": { borderColor: "#ff9900" }, // Orange
-          "33.4%": { borderColor: "#ffff00" }, // Yellow
-          "50.1%": { borderColor: "#00ff00" }, // Green
-          "66.8%": { borderColor: "#0000ff" }, // Blue
-          "83.5%": { borderColor: "#9900ff" }, // Purple
+        pulse: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.5" },
+        },
+        rainbow: {
+          "0%": { borderColor: "#ff0000" },
+          "16%": { borderColor: "#ff7f00" },
+          "33%": { borderColor: "#ffff00" },
+          "50%": { borderColor: "#00ff00" },
+          "66%": { borderColor: "#0000ff" },
+          "83%": { borderColor: "#4b0082" },
+          "100%": { borderColor: "#8b00ff" },
         },
         "accordion-down": {
           from: { height: "0" },
@@ -83,7 +88,8 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "rainbow-glow": "rainbow-glow 5s linear infinite",
+        pulse: "pulse 5s infinite",
+        rainbow: "rainbow 20s linear infinite",
       },
     },
   },
