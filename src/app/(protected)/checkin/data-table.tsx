@@ -105,6 +105,12 @@ export function DataTable<TData, TValue>({
             type="text"
             className="w-full p-2 text-black border-2 border-transparent bg-white rounded-md outline-none transition duration-2000 focus:border-transparent animate-rainbow"
             placeholder="Search floats"
+            value={
+              (table.getColumn("nameColumn")?.getFilterValue() as string) ?? ""
+            }
+            onChange={(event) =>
+              table.getColumn("nameColumn")?.setFilterValue(event.target.value)
+            }
           />
         </div>
         <div className="flex w-full justify-between px-4  font-semibold text-gray-700 border-b py-4 text-sm">
