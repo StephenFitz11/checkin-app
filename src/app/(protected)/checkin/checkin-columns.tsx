@@ -13,11 +13,37 @@ export type Payment = {
   email: string;
 };
 
+export type TransportType =
+  | "walkingGroup"
+  | "vehicle"
+  | "bus"
+  | "vehicleTrailer";
+
+export const typeMap = {
+  walkingGroup: "🚶‍♂️",
+  vehicle: "🚙",
+  bus: "🚌",
+  vehicleTrailer: "🚚",
+};
+
+const returnEmoji = (type: TransportType): string | undefined => {
+  if (type in typeMap) {
+    return typeMap[type as TransportType];
+  }
+  return "❓";
+};
+
 export const checkinColums: ColumnDef<Participant>[] = [
   {
     id: "nameColumn",
     accessorKey: "name",
     header: "Name",
+  },
+  {
+    id: "typeColumn",
+    accessorKey: "type",
+    header: "Name",
+    cell: ({ row }) => returnEmoji(row.getValue("typeColumn")),
   },
   {
     id: "corralColumn",

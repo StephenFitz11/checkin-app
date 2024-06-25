@@ -13,12 +13,14 @@ model Coral {
   arrivalWindowStart DateTime      @db.Time(6)
   createdAt          DateTime      @default(now())
   arrivalWindowEnd   DateTime?     @db.Time(6)
+  order              Int[]         @default([])
   Participant        Participant[]
 }
 
 model Participant {
   id           Int        @id @default(autoincrement())
   name         String
+  type         String?
   contactEmail String?
   contactPhone String?
   coralId      Int

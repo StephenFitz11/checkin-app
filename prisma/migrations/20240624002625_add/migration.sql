@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Coral" ADD COLUMN     "order" INTEGER[] DEFAULT ARRAY[]::INTEGER[];

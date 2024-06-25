@@ -33,7 +33,7 @@ const ParticipantRow = ({
   useEffect(() => {
     const getTheCookie = async () => {
       const cookie = await getCookie();
-      console.log(cookie);
+      if (!cookie) return;
 
       if (cookie.includes(participant.id)) {
         setSeen(true);

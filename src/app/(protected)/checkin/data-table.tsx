@@ -28,12 +28,13 @@ import {
 } from "@/components/ui/table";
 import { ChangeCorral, corrals } from "../main/change-corral";
 import { Button } from "@/components/ui/button";
+import { checkinMain } from "@/actions/checkin-main";
+import { updateCorralMain } from "@/actions/update-corral-main";
 import { Participant } from "@prisma/client";
 import { handleCheckin } from "@/actions/edit-checkin";
-import { checkinMain } from "@/actions/checkin-main";
 import { updateCorral } from "@/actions/update-corral";
-import { updateCorralMain } from "@/actions/update-corral-main";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { TransportType } from "./checkin-columns";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -45,6 +46,7 @@ export type ParticipantMain = {
   corral: string;
   checkedIn: boolean;
   corralId: number;
+  type: string;
 };
 export function DataTable<TData, TValue>({
   columns,
@@ -56,6 +58,7 @@ export function DataTable<TData, TValue>({
     corral: "",
     checkedIn: false,
     corralId: 0,
+    type: "",
   });
   const [open, setOpen] = useState(false);
 
@@ -67,9 +70,11 @@ export function DataTable<TData, TValue>({
     nameColumn: true,
     corralColumn: true, //hide this column by default
     idColumn: false,
+    typeColumn: true,
     checkedInColumn: true,
     corralIdColumn: false,
   });
+
   const table = useReactTable({
     data,
     columns,
@@ -89,6 +94,20 @@ export function DataTable<TData, TValue>({
     // setCorralValue(value);
     await updateCorralMain(participant, value);
     setOpen(false);
+  };
+
+  const typeMap: { [key: string]: string } = {
+    vehicleTrailer: "Vehicle + Trailer 🚚",
+    vehicle: "Vehicle 🚙",
+    walkingGroup: "Walking Group 🚶‍♂️",
+    bus: "Bus 🚌",
+  };
+
+  const returnType = (type: TransportType): string => {
+    if (type in typeMap) {
+      return typeMap[type as TransportType];
+    }
+    return "Unknown ❓";
   };
 
   return (
@@ -118,6 +137,7 @@ export function DataTable<TData, TValue>({
             <p>Name</p>
           </div>
           <div className="flex gap-4">
+            <p>Type</p>
             <p>Corral</p>
             <p>Checkin</p>
           </div>
@@ -154,6 +174,7 @@ export function DataTable<TData, TValue>({
                       corral: row.getValue("corralColumn"),
                       checkedIn: row.getValue("checkedInColumn"),
                       corralId: row.getValue("corralIdColumn"),
+                      type: returnType(row.getValue("typeColumn")),
                     });
                     setOpen(true);
                   }}
@@ -199,6 +220,10 @@ export function DataTable<TData, TValue>({
             <div className=" items-center gap-4 flex space-x-4 ">
               <p>Corral: </p>
               <p>{participant.corral}</p>
+            </div>
+            <div className=" items-center gap-4 flex space-x-4 ">
+              <p>Type: </p>
+              <p>{participant.type}</p>
             </div>
           </div>
           <DialogFooter className="gap-3">
