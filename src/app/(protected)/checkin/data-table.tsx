@@ -47,6 +47,7 @@ export type ParticipantMain = {
   checkedIn: boolean;
   corralId: number;
   type: string;
+  specialOrder: boolean;
 };
 export function DataTable<TData, TValue>({
   columns,
@@ -59,6 +60,7 @@ export function DataTable<TData, TValue>({
     checkedIn: false,
     corralId: 0,
     type: "",
+    specialOrder: false,
   });
   const [open, setOpen] = useState(false);
 
@@ -73,6 +75,7 @@ export function DataTable<TData, TValue>({
     typeColumn: true,
     checkedInColumn: true,
     corralIdColumn: false,
+    specialOrderColumn: false,
   });
 
   const table = useReactTable({
@@ -175,6 +178,7 @@ export function DataTable<TData, TValue>({
                       checkedIn: row.getValue("checkedInColumn"),
                       corralId: row.getValue("corralIdColumn"),
                       type: returnType(row.getValue("typeColumn")),
+                      specialOrder: row.getValue("specialOrderColumn"),
                     });
                     setOpen(true);
                   }}
@@ -225,6 +229,12 @@ export function DataTable<TData, TValue>({
               <p>Type: </p>
               <p>{participant.type}</p>
             </div>
+            {participant.specialOrder && (
+              <div className=" items-center gap-4 flex space-x-4 ">
+                <p>Special Order: </p>
+                <p>{participant.specialOrder}</p>
+              </div>
+            )}
           </div>
           <DialogFooter className="gap-3">
             <ChangeCorral

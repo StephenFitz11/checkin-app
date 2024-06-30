@@ -38,7 +38,7 @@ import { useRouter } from "next/navigation";
 import { CarouselApi } from "@/components/ui/carousel";
 import { ChangeCorral, corrals } from "./change-corral";
 import { updateCorral } from "@/actions/update-corral";
-import { Check, CheckCircle, UserCheck } from "lucide-react";
+import { Check, CheckCircle, Space, UserCheck } from "lucide-react";
 // import { useSearchParams } from "next/navigation";
 
 interface Item {
@@ -101,7 +101,10 @@ function SortableItem({
             {idx}
           </text>
         </svg>
-        <span className="flex-grow break-words">{item.name}</span>
+        <span className="flex-grow inline-flex gap-4 break-words">
+          {item.name}
+          <span>{item.specialOrder && "#" + item.specialOrder}</span>
+        </span>
       </div>
       {item.checkedIn && (
         <Check className="h-6 w-6 text-green-500 flex-shrink-0" />

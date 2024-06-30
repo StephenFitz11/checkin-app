@@ -38,6 +38,18 @@ export const checkinColums: ColumnDef<Participant>[] = [
     id: "nameColumn",
     accessorKey: "name",
     header: "Name",
+    cell: ({ row }) => {
+      if (row.getValue("specialOrderColumn")) {
+        return <>{row.getValue("nameColumn")} 🔹</>;
+      } else {
+        return <>{row.getValue("nameColumn")}</>;
+      }
+    },
+  },
+  {
+    id: "specialOrderColumn",
+    accessorKey: "specialOrder",
+    header: "Name",
   },
   {
     id: "typeColumn",

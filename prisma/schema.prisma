@@ -32,6 +32,7 @@ model Participant {
   type         String?
   contactEmail String?
   contactPhone String?
+  specialOrder Int?
   coralId      Int
   checkedIn    Boolean    @default(false)
   paradeOrder  Int?
