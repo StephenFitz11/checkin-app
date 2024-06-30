@@ -7,6 +7,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Parade {
+  id          Int       @id @default(autoincrement())
+  name        String?
+  status      String
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime?
+}
+
 model Coral {
   id                 Int           @id @default(autoincrement())
   name               String
