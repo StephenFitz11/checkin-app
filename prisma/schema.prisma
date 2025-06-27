@@ -33,6 +33,8 @@ model Participant {
   type         String?
   contactEmail String?
   contactPhone String?
+  infoTextOne  String?
+  infoTextTwo  String?
   specialOrder Int?
   coralId      Int
   checkedIn    Boolean    @default(false)
