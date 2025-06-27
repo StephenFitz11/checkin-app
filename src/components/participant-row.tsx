@@ -100,7 +100,7 @@ const ParticipantRow = ({
         </AccordionContent>
       </AccordionItem>
       <div
-        className="flex-shrink-0 flex gap-2 items-center"
+        className="flex-shrink-0 flex gap-2 items-center pr-2"
         onClick={handleTap}
       >
         {seen ? (
