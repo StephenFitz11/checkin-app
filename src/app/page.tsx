@@ -1,11 +1,18 @@
-import React from "react";
+import React from 'react';
 
-import prisma from "@/lib/db";
-import { ScrollArea } from "@/components/ui/scroll-area";
-
-import RefreshButton from "./refresh-btn";
-import ParticipantRow from "@/components/participant-row";
-import { cn } from "@/lib/utils";
+import prisma from '@/lib/db';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import RefreshButton from './refresh-btn';
+import ParticipantRow from '@/components/participant-row';
+import { cn } from '@/lib/utils';
+import { CircleCheck } from 'lucide-react';
+import ParticipantAccordian from './participant-accordian';
 
 export const revalidate = 1;
 
@@ -20,11 +27,11 @@ const page = async () => {
     where: {
       checkedIn: true,
     },
-    orderBy: [{ coralId: "asc" }, { paradeOrder: "asc" }],
+    orderBy: [{ coralId: 'asc' }, { paradeOrder: 'asc' }],
   });
 
   const paradeStatus =
-    status?.status == "not_started" ? (
+    status?.status == 'not_started' ? (
       <span className="inline-flex items-center rounded-md bg-pink-50 px-2 py-1 text-xs font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10">
         Not Started
       </span>
@@ -93,15 +100,7 @@ const page = async () => {
               <div>Seen</div>
             </div>
             <ScrollArea className=" w-full overflow-y-auto">
-              {participants.map((participant, idx) => (
-                <ParticipantRow
-                  key={participant.id}
-                  participant={participant}
-                  idx={idx}
-                >
-                  {participant.name}
-                </ParticipantRow>
-              ))}
+              <ParticipantAccordian participants={participants} />
               <div className="flex gap-3 pb-24 pt-8 items-center justify-center">
                 <h3 className="inline text-3xl">🚗</h3>
                 <h3 className="inline text-3xl">🚗</h3>
@@ -117,8 +116,8 @@ const page = async () => {
       </div>
       <RefreshButton
         className={cn(
-          participants.length === 0 ? "sm:hidden" : "",
-          "sm:py-6 fixed bottom-0 left-0 text-lg"
+          participants.length === 0 ? 'sm:hidden' : '',
+          'sm:py-6 fixed bottom-0 left-0 text-lg'
         )}
       />
     </main>
