@@ -85,7 +85,7 @@ const ParticipantRow = ({
             <p
               className={cn(
                 seen && 'text-gray-500 line-through',
-                'flex-shrink'
+                'flex-shrink text-left'
               )}
             >
               {children}
