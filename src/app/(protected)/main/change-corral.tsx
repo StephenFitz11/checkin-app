@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Select,
@@ -8,15 +8,15 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Participant } from "@prisma/client";
-import { useState } from "react";
+} from '@/components/ui/select';
+import { Participant } from '@prisma/client';
+import { useState } from 'react';
 
 export const corrals = [
-  { id: 1, name: "Corral A", letter: "A" },
-  { id: 2, name: "Corral B", letter: "B" },
-  { id: 3, name: "Corral C", letter: "C" },
-  { id: 4, name: "Corral D", letter: "D" },
+  { id: 4, name: 'Corral A', letter: 'A' },
+  { id: 6, name: 'Corral B', letter: 'B' },
+  { id: 7, name: 'Corral C', letter: 'C' },
+  { id: 8, name: 'Corral D', letter: 'D' },
 ];
 
 export function ChangeCorral({
@@ -29,7 +29,7 @@ export function ChangeCorral({
   return (
     <Select
       value={corralValue}
-      onValueChange={(value) => handleChangeCorral(value)}
+      onValueChange={value => handleChangeCorral(value)}
     >
       <SelectTrigger className="w-full">
         <SelectValue placeholder="Change Corral" />
@@ -37,7 +37,7 @@ export function ChangeCorral({
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Corrals</SelectLabel>
-          {corrals.map((corral) => (
+          {corrals.map(corral => (
             <SelectItem key={corral.id} value={String(corral.id)}>
               {corral.name}
             </SelectItem>

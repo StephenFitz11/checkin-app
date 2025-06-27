@@ -1,23 +1,26 @@
-import * as React from "react";
-import prisma from "@/lib/db";
-import { Card, CardContent } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import * as React from 'react';
+import prisma from '@/lib/db';
+import { Card, CardContent } from '@/components/ui/card';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
-import ReorderableTable from "./drop-drag";
-import CaroselComp from "./carosel";
+} from '@/components/ui/carousel';
+import ReorderableTable from './drop-drag';
+import CaroselComp from './carosel';
 
 const getCorrals = async () => {
   const coralsWithParticipants = await prisma.coral.findMany({
+    orderBy: {
+      id: 'asc',
+    },
     include: {
       Participant: {
         orderBy: {
-          paradeOrder: "asc",
+          paradeOrder: 'asc',
         },
       },
     },

@@ -1,6 +1,6 @@
-"use client";
-import { Card, CardContent } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
+'use client';
+import { Card, CardContent } from '@/components/ui/card';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Carousel,
   CarouselApi,
@@ -8,16 +8,15 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
-import ReorderableTable from "./drop-drag";
-import { CorralWithParticipants } from "@/types/types";
-import { useState } from "react";
+} from '@/components/ui/carousel';
+import ReorderableTable from './drop-drag';
+import { CorralWithParticipants } from '@/types/types';
+import { useState } from 'react';
 // import { useSearchParams } from "next/navigation";
-import { MoveLeft, MoveRight } from "lucide-react";
+import { MoveLeft, MoveRight } from 'lucide-react';
 
 const CaroselComp = ({ corrals }: { corrals: CorralWithParticipants[] }) => {
   const [api, setApi] = useState<CarouselApi>();
-
   return (
     <>
       {/* <button className="" onClick={() => api?.scrollPrev()}>
