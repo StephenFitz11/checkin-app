@@ -28,21 +28,22 @@ model Coral {
 }
 
 model Participant {
-  id           Int        @id @default(autoincrement())
-  name         String
-  type         String?
-  contactEmail String?
-  contactPhone String?
-  infoTextOne  String?
-  infoTextTwo  String?
-  specialOrder Int?
-  coralId      Int
-  checkedIn    Boolean    @default(false)
-  paradeOrder  Int?
-  createdAt    DateTime?  @default(now())
-  updatedAt    DateTime?
-  Coral        Coral      @relation(fields: [coralId], references: [id])
-  CheckIns     CheckIns[]
+  id            Int        @id @default(autoincrement())
+  name          String
+  type          String?
+  contactEmail  String?
+  contactPhone  String?
+  infoTextOne   String?
+  infoTextTwo   String?
+  checkinNumber Int?
+  specialOrder  Int?
+  coralId       Int
+  checkedIn     Boolean    @default(false)
+  paradeOrder   Int?
+  createdAt     DateTime?  @default(now())
+  updatedAt     DateTime?
+  Coral         Coral      @relation(fields: [coralId], references: [id])
+  CheckIns      CheckIns[]
 }
 
 model User {
