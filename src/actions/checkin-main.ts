@@ -42,19 +42,27 @@ export const determineParadeOrder = async (
   return paradeOrderUpdate;
 };
 
-export const checkinMain = async (p: ParticipantMain, checkValue: boolean) => {
+export const checkinMain = async (
+  p: ParticipantMain,
+  checkValue: boolean,
+  checkinNumber: number | null = null
+) => {
   if (!p) return;
   const paradeOrderUpdate = await determineParadeOrder(p, checkValue);
+  const data: { checkedIn: boolean; paradeOrder: number | null; checkinNumber?: number | null } = {
+    checkedIn: checkValue,
+    paradeOrder: paradeOrderUpdate,
+  };
+  if (checkValue && checkinNumber != null) {
+    data.checkinNumber = checkinNumber;
+  }
   await prisma.participant.update({
     where: {
-      // Assuming you have some identifier to select the third record, e.g., id
       id: Number(p.id),
     },
-    data: {
-      checkedIn: checkValue,
-      paradeOrder: paradeOrderUpdate,
-    },
+    data,
   });
   revalidatePath('/main');
+  revalidatePath('/checkin');
   revalidatePath('/', 'layout');
 };

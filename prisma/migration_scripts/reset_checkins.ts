@@ -15,6 +15,7 @@ async function mains() {
       data: {
         paradeOrder: null,
         checkedIn: false,
+        checkinNumber: null,
       },
     });
   }

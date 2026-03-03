@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -48,6 +48,7 @@ export type ParticipantMain = {
   corralId: number;
   type: string;
   specialOrder: boolean;
+  checkinNumber: number | null;
 };
 export function DataTable<TData, TValue>({
   columns,
@@ -61,8 +62,12 @@ export function DataTable<TData, TValue>({
     corralId: 0,
     type: "",
     specialOrder: false,
+    checkinNumber: null,
   });
   const [open, setOpen] = useState(false);
+  const checkinButtonRef = useRef<HTMLButtonElement>(null);
+  const undoCheckinButtonRef = useRef<HTMLButtonElement>(null);
+  const checkinNumberInputRef = useRef<HTMLInputElement>(null);
 
   const [rowSelection, setRowSelection] = useState({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -179,6 +184,7 @@ export function DataTable<TData, TValue>({
                       corralId: row.getValue("corralIdColumn"),
                       type: returnType(row.getValue("typeColumn")),
                       specialOrder: row.getValue("specialOrderColumn"),
+                      checkinNumber: (row.original as Participant).checkinNumber ?? null,
                     });
                     setOpen(true);
                   }}
@@ -215,25 +221,43 @@ export function DataTable<TData, TValue>({
               Use this to checkin the participant
             </DialogDescription>
           </DialogHeader>
-          <div className="grid gap-4 py-4 ">
-            <div className=" items-center gap-4 flex space-x-4 ">
-              <p>Name: </p>
-              <p>{participant?.name}</p>
-              {/* <p>{corrals.find((c) => c.id === participant?.coralId)?.name}</p> */}
-            </div>
-            <div className=" items-center gap-4 flex space-x-4 ">
-              <p>Corral: </p>
-              <p>{participant.corral}</p>
-            </div>
-            <div className=" items-center gap-4 flex space-x-4 ">
-              <p>Type: </p>
-              <p>{participant.type}</p>
-            </div>
+          <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-3 items-center py-4">
+            <p className="text-muted-foreground">Name</p>
+            <p>{participant?.name}</p>
+
+            <label htmlFor="checkin-number" className="text-muted-foreground">
+              Checkin Number
+            </label>
+            <input
+              ref={checkinNumberInputRef}
+              id="checkin-number"
+              key={participant.id}
+              type="tel"
+              inputMode="numeric"
+              autoComplete="off"
+              pattern="[0-9]*"
+              className="w-full max-w-[140px] rounded-md border border-input bg-muted px-3 py-2 text-base tabular-nums"
+              defaultValue={participant.checkinNumber != null ? String(participant.checkinNumber) : ""}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  (e.target as HTMLInputElement).blur();
+                  (checkinButtonRef.current ?? undoCheckinButtonRef.current)?.focus();
+                }
+              }}
+            />
+
+            <p className="text-muted-foreground">Corral</p>
+            <p>{participant.corral}</p>
+
+            <p className="text-muted-foreground">Type</p>
+            <p>{participant.type}</p>
+
             {participant.specialOrder && (
-              <div className=" items-center gap-4 flex space-x-4 ">
-                <p>Special Order: </p>
+              <>
+                <p className="text-muted-foreground">Special Order</p>
                 <p>{participant.specialOrder}</p>
-              </div>
+              </>
             )}
           </div>
           <DialogFooter className="gap-3">
@@ -243,6 +267,7 @@ export function DataTable<TData, TValue>({
             />
             {participant?.checkedIn && (
               <Button
+                ref={undoCheckinButtonRef}
                 type="button"
                 variant="outline"
                 onClick={async () => {
@@ -271,9 +296,14 @@ export function DataTable<TData, TValue>({
 
             {!participant?.checkedIn && (
               <Button
+                ref={checkinButtonRef}
                 type="button"
                 onClick={async () => {
-                  await checkinMain(participant, true);
+                  const raw = checkinNumberInputRef.current?.value?.trim() ?? "";
+                  const num = raw ? parseInt(raw, 10) : null;
+                  const checkinNumber =
+                    num != null && !Number.isNaN(num) ? num : null;
+                  await checkinMain(participant, true, checkinNumber);
                   setOpen(false);
                 }}
               >

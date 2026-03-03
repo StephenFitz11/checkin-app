@@ -1,11 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { io, Socket } from "socket.io-client";
 import { Participant } from "@prisma/client";
 
 export default function NumbersPage({ data }: { data: Participant[] }) {
   const [value, setValue] = useState("");
   const [matchedParticipant, setMatchedParticipant] = useState<Participant | null>(null);
+  const socketRef = useRef<Socket | null>(null);
+
+  useEffect(() => {
+    // Adjust URL/port if your WS server runs elsewhere
+    const socket = io("http://localhost:3005", {
+      transports: ["websocket"],
+    });
+
+    socketRef.current = socket;
+
+    socket.on("connect", () => {
+      console.log("Connected to number WS:", socket.id);
+    });
+
+    socket.on("disconnect", (reason) => {
+      console.log("Disconnected from number WS:", reason);
+    });
+
+    return () => {
+      socket.disconnect();
+      socketRef.current = null;
+    };
+  }, []);
 
   const updateMatchedParticipant = (rawValue: string) => {
     if (!rawValue) {
@@ -41,6 +65,15 @@ export default function NumbersPage({ data }: { data: Participant[] }) {
   };
 
   const handleSubmit = () => {
+    if (!value) {
+      return;
+    }
+
+    const numericValue = parseInt(value, 10);
+    if (!Number.isNaN(numericValue) && socketRef.current) {
+      socketRef.current.emit("number", numericValue);
+    }
+
     setValue("");
   };
 
